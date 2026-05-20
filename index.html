@@ -55,17 +55,20 @@
             justify-content: flex-start;
         }
 
-        /* Το έντυπο - Πιο μαζεμένο για να χωράει άνετα στην Α4 */
+        /* Το έντυπο - Με ομοιόμορφο κενό (περιθώριο) πάνω και κάτω */
         #document-page {
             background-color: #ffffff;
             color: #000000;
             width: 794px; /* 210mm */
             min-height: 1123px; /* 297mm */
-            padding: 30px; /* Μειωμένο padding για περισσότερο χώρο */
+            padding: 45px 30px 45px 30px; /* Αυξημένο κενό 45px πάνω και κάτω */
             box-sizing: border-box;
             border: 1px solid #333;
             flex-shrink: 0;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         /* Όλα τα πεδία κεντραρισμένα */
@@ -107,7 +110,7 @@
             text-align: left;
         }
 
-        /* Δομή Ορόφων - Πιο μαζεμένα κουτάκια */
+        /* Δομή Ορόφων */
         .floors-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -129,7 +132,7 @@
 
         .floor-item .box {
             border: 2px solid #000;
-            height: 34px; /* Μειωμένο ύψος */
+            height: 34px;
         }
 
         .floor-item .box input {
@@ -161,7 +164,7 @@
         .inline-field label { white-space: nowrap; margin-right: 5px; }
         .inline-field input { border: none; border-bottom: 1px solid #000; width: 100%; }
 
-        /* Πίνακες - Πιο συμπαγείς */
+        /* Πίνακες */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -231,7 +234,7 @@
             #document-page {
                 border: none;
                 box-shadow: none;
-                padding: 10mm;
+                padding: 12mm 10mm 12mm 10mm;
                 width: 210mm;
                 height: 297mm;
             }
@@ -284,7 +287,7 @@
                     <div class="inline-field"><label>ΣΥΝΟΛΟ ΔΙΑΜΕΡΙΣΜΑΤΩΝ:</label><input type="text"></div>
                     <div class="inline-field"><label>ΣΥΝΟΛΟ ΚΑΤΑΣΤΗΜΑΤΩΝ:</label><input type="text"></div>
                     <div class="inline-field"><label>ΣΥΝΟΛΟ ΧΩΡΩΝ:</label><input type="text"></div>
-                    <div class="inline-field"><label>ΣΥΝΟΛＯ ΟΡΟΦΩΝ/ΕΠΙΠΕΔΩΝ:</label><input type="text"></div>
+                    <div class="inline-field"><label>ΣΥΝΟΛΟ ΟΡΟΦΩΝ/ΕΠΙΠΕΔΩΝ:</label><input type="text"></div>
 
                     <table>
                         <tr><th>BCP</th><th>RAYCAP</th><th>ZTT</th><th>CANNOVATE</th></tr>
