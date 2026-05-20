@@ -23,7 +23,7 @@
             display: flex;
             gap: 10px;
             width: 100%;
-            max-width: 790px;
+            max-width: 210mm; /* Ευθυγράμμιση με το πλάτος της Α4 */
         }
 
         button {
@@ -45,7 +45,7 @@
             box-shadow: 0 0 10px #00adb5;
         }
 
-        /* Responsive Container για να μην χάνεται η αριστερή πλευρά στα κινητά */
+        /* Responsive Container */
         .scroll-container {
             width: 100%;
             overflow-x: auto;
@@ -53,16 +53,17 @@
             justify-content: flex-start;
         }
 
-        /* Το έντυπο - Πιστό αντίγραφο του πρωτοτύπου */
+        /* Το έντυπο - Ακριβείς Διαστάσεις Α4 */
         #document-page {
             background-color: #ffffff;
             color: #000000;
-            width: 790px;
-            min-height: 1100px;
-            padding: 30px;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
             box-sizing: border-box;
             border: 1px solid #333;
             flex-shrink: 0;
+            position: relative;
         }
 
         /* Όλα τα πεδία κεντραρισμένα */
@@ -104,7 +105,7 @@
             text-align: left;
         }
 
-        /* Δομή Ορόφων με έντονα μαύρα κουτιά */
+        /* Δομή Ορόφων */
         .floors-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -179,7 +180,7 @@
         th { font-weight: bold; background-color: #f5f5f5; }
         td input { border: none !important; text-align: center; height: 100%; font-weight: bold; }
 
-        /* Splitter ειδικό πεδίο */
+        /* Splitter */
         .splitter-row {
             display: flex;
             gap: 12px;
@@ -208,14 +209,53 @@
             text-align: center;
         }
 
-        /* Ρυθμίσεις Εκτύπωσης */
+        /* Μοντέρνο Modal για προβολή εικόνας στα κινητά */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal img {
+            max-width: 100%;
+            max-height: 80%;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .modal p {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .modal .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #00adb5;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Ρυθμίσεις Εκτύπωσης Α4 */
         @media print {
             body {
                 background: #fff;
                 padding: 0;
             }
-            .actions {
-                display: none;
+            .actions, .modal {
+                display: none !important;
             }
             .scroll-container {
                 overflow: visible;
@@ -224,7 +264,8 @@
                 border: none;
                 box-shadow: none;
                 padding: 0;
-                width: 100%;
+                width: 210mm;
+                height: 297mm;
             }
         }
     </style>
@@ -258,221 +299,69 @@
             </div>
 
             <div class="floors-container">
-                <div class="floor-item">
-                    <label>ΥΠΟΓΕΙΟ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>ΗΜΙΥΠΟΓΕΙΟ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-
-                <div class="floor-item">
-                    <label>ΙΣΟΓΕΙΟ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>ΗΜΙΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-
-                <div class="floor-item">
-                    <label>1ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>2ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-
-                <div class="floor-item">
-                    <label>3ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>4ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-
-                <div class="floor-item">
-                    <label>5ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>6ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-
-                <div class="floor-item">
-                    <label>7ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
-                <div class="floor-item">
-                    <label>8ΟΣ ΟΡΟΦΟΣ</label>
-                    <div class="box"><input type="text"></div>
-                </div>
+                <div class="floor-item"><label>ΥΠΟΓΕΙΟ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>ΗΜΙΥΠΟΓΕΙΟ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>ΙΣΟΓΕΙΟ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>ΗΜΙΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>1ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>2ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>3ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>4ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>5ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>6ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>7ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
+                <div class="floor-item"><label>8ΟΣ ΟΡΟΦΟΣ</label><div class="box"><input type="text"></div></div>
             </div>
 
             <div class="bottom-container">
                 
                 <div class="totals-side">
-                    <div class="inline-field">
-                        <label>ΣΥΝΟΛΟ ΔΙΑΜΕΡΙΣΜΑΤΩΝ:</label>
-                        <input type="text">
-                    </div>
-                    <div class="inline-field">
-                        <label>ΣΥΝΟΛΟ ΚΑΤΑΣΤΗΜΑΤΩΝ:</label>
-                        <input type="text">
-                    </div>
-                    <div class="inline-field">
-                        <label>ΣΥΝΟΛΟ ΧΩΡΩΝ:</label>
-                        <input type="text">
-                    </div>
-                    <div class="inline-field">
-                        <label>ΣΥΝΟΛΟ ΟΡΟΦΩΝ/ΕΠΙΠΕΔΩΝ:</label>
-                        <input type="text">
-                    </div>
+                    <div class="inline-field"><label>ΣΥΝΟΛΟ ΔΙΑΜΕΡΙΣΜΑΤΩΝ:</label><input type="text"></div>
+                    <div class="inline-field"><label>ΣΥΝΟΛΟ ΚΑΤΑΣΤΗΜΑΤΩΝ:</label><input type="text"></div>
+                    <div class="inline-field"><label>ΣΥΝΟΛΟ ΧΩΡΩΝ:</label><input type="text"></div>
+                    <div class="inline-field"><label>ΣΥΝΟΛΟ ΟΡΟΦΩΝ/ΕΠΙΠΕΔΩΝ:</label><input type="text"></div>
 
                     <table>
-                        <tr>
-                            <th>BCP</th>
-                            <th>RAYCAP</th>
-                            <th>ZTT</th>
-                            <th>CANNOVATE</th>
-                        </tr>
-                        <tr>
-                            <td>SMALL</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>MEDIUM</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
+                        <tr><th>BCP</th><th>RAYCAP</th><th>ZTT</th><th>CANNOVATE</th></tr>
+                        <tr><td>SMALL</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>MEDIUM</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
                     </table>
 
                     <table>
-                        <tr>
-                            <th>BEP</th>
-                            <th>RAYCAP</th>
-                            <th>ZTT</th>
-                            <th>CANNOVATE</th>
-                        </tr>
-                        <tr>
-                            <td>SMALL</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>MEDIUM</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>LARGE</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>XLARGE</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
+                        <tr><th>BEP</th><th>RAYCAP</th><th>ZTT</th><th>CANNOVATE</th></tr>
+                        <tr><td>SMALL</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>MEDIUM</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>LARGE</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>XLARGE</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
                     </table>
 
                     <table>
-                        <tr>
-                            <th>BMO</th>
-                            <th>RAYCAP</th>
-                            <th>ZTT</th>
-                            <th>CANNOVATE</th>
-                            <th>ΠΟΣΟΤΗΤΑ</th>
-                        </tr>
-                        <tr>
-                            <td>SMALL</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>MEDIUM</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>LARGE</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>XLARGE</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
+                        <tr><th>BMO</th><th>RAYCAP</th><th>ZTT</th><th>CANNOVATE</th><th>ΠΟΣΟΤΗΤΑ</th></tr>
+                        <tr><td>SMALL</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>MEDIUM</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>LARGE</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>XLARGE</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
                     </table>
                 </div>
 
                 <div class="info-side">
-                    <div class="inline-field">
-                        <label>SR ID:</label>
-                        <input type="text">
-                    </div>
+                    <div class="inline-field"><label>SR ID:</label><input type="text"></div>
                     <div style="font-size: 12px; font-weight: bold; margin-top: 4px;">ΣΥΝΤΕΤΑΓΜΕΝΕΣ ΚΤΙΡΙΟΥ:</div>
-                    <div class="inline-field" style="padding-left: 15px;">
-                        <label>X:</label>
-                        <input type="text">
-                    </div>
-                    <div class="inline-field" style="padding-left: 15px;">
-                        <label>Y:</label>
-                        <input type="text">
-                    </div>
+                    <div class="inline-field" style="padding-left: 15px;"><label>X:</label><input type="text"></div>
+                    <div class="inline-field" style="padding-left: 15px;"><label>Y:</label><input type="text"></div>
 
                     <div class="splitter-row">
                         <span>SPLITTER:</span>
-                        <label>1:8</label>
-                        <input type="text">
-                        <label>1:2</label>
-                        <input type="text">
+                        <label>1:8</label><input type="text">
+                        <label>1:2</label><input type="text">
                     </div>
 
-                    <div class="inline-field" style="margin-top: 4px;">
-                        <label>ΚΑΜΠΙΝΑ:</label>
-                        <input type="text">
-                    </div>
-                    <div class="inline-field">
-                        <label>ΑΝΑΜΟΝΗ:</label>
-                        <input type="text">
-                    </div>
+                    <div class="inline-field" style="margin-top: 4px;"><label>ΚΑΜΠΙΝΑ:</label><input type="text"></div>
+                    <div class="inline-field"><label>ΑΝΑΜΟΝΗ:</label><input type="text"></div>
 
                     <table style="margin-top: 20px;">
-                        <tr>
-                            <th>FLOORBOX</th>
-                            <th>2 Drop</th>
-                            <th>4 Drop</th>
-                            <th>6 Drop</th>
-                            <th>12 Drop</th>
-                        </tr>
-                        <tr>
-                            <td><strong>ΠΟΣΟΤΗΤΑ</strong></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                        </tr>
+                        <tr><th>FLOORBOX</th><th>2 Drop</th><th>4 Drop</th><th>6 Drop</th><th>12 Drop</th></tr>
+                        <tr><td><strong>ΠΟΣΟΤΗΤΑ</strong></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
                     </table>
 
                     <div class="observations">
@@ -485,41 +374,62 @@
         </div>
     </div>
 
+    <div id="imageModal" class="modal">
+        <button class="close-btn" onclick="closeModal()">Κλείσιμο</button>
+        <img id="modalImage" src="" alt="Έγγραφο">
+        <p>Κρατήστε πατημένη την εικόνα για να την αποθηκεύσετε στη συσκευή σας.</p>
+    </div>
+
     <script>
         function saveAsImage() {
             const element = document.getElementById('document-page');
             
+            // Λύση για να αποτυπώνονται οι τιμές των inputs σωστά στο html2canvas
+            const inputs = element.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.setAttribute('value', input.value);
+                if(input.tagName.toLowerCase() === 'textarea') {
+                    input.innerHTML = input.value;
+                }
+            });
+
             const options = {
-                scale: 2, // Καθαρή εικόνα
+                scale: 2, // Υψηλή ανάλυση
                 useCORS: true,
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                logging: false
             };
 
-            // Μικρή καθυστέρηση για να σιγουρέψουμε ότι έχουν αποτυπωθεί οι αλλαγές στα inputs
             setTimeout(() => {
                 html2canvas(element, options).then(canvas => {
                     try {
                         const imgData = canvas.toDataURL('image/png');
                         
-                        // Προσπάθεια για απευθείας download (δουλεύει σε PC & ορισμένους mobile browsers)
-                        const link = document.createElement('a');
-                        link.download = 'katagrafi_ktiriou.png';
-                        link.href = imgData;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        
-                        // Εναλλακτική για κινητά: Ανοίγει την εικόνα σε νέο tab για χειροκίνητη αποθήκευση
-                        const newWindow = window.open();
-                        if (newWindow) {
-                            newWindow.document.write('<img src="' + imgData + '" style="width:100%; max-width:790px;" /><p style="text-align:center; font-family:Arial; font-weight:bold; margin-top:20px;">Κρατήστε πατημένη την εικόνα για να την αποθηκεύσετε στις φωτογραφίες σας.</p>');
-                            newWindow.document.close();
+                        // Έλεγχος αν είναι mobile συσκευή
+                        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+                        if (isMobile) {
+                            // Εμφάνιση στο custom modal εντός της σελίδας
+                            document.getElementById('modalImage').src = imgData;
+                            document.getElementById('imageModal').style.display = 'flex';
+                        } else {
+                            // Κανονικό download για PC
+                            const link = document.createElement('a');
+                            link.download = 'katagrafi_ktiriou.png';
+                            link.href = imgData;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                         }
                     } catch (e) {
-                        alert("Παρακαλώ τραβήξτε ένα screenshot της οθόνης, καθώς ο browser σας περιορίζει την εξαγωγή εικόνων.");
+                        alert("Σφάλμα κατά την εξαγωγή. Παρακαλώ τραβήξτε ένα screenshot.");
                     }
                 });
             }, 300);
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
         }
     </script>
 </body>
