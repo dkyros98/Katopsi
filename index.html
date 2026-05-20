@@ -62,7 +62,7 @@
             padding: 30px;
             box-sizing: border-box;
             border: 1px solid #333;
-            flex-shrink: 0; /* Εμποδίζει το έγγραφο να μικρύνει παραμορφωμένα */
+            flex-shrink: 0;
         }
 
         /* Όλα τα πεδία κεντραρισμένα */
@@ -75,7 +75,7 @@
             font-family: Arial, Helvetica, sans-serif;
             width: 100%;
             box-sizing: border-box;
-            text-align: center; /* Στοίχιση στη μέση */
+            text-align: center;
         }
 
         .header-box {
@@ -101,7 +101,7 @@
         .header-row input {
             border: none;
             border-bottom: 1px solid #000;
-            text-align: left; /* Η διεύθυνση μένει αριστερά για να διαβάζεται, αν θες και αυτή μέση άλλαξέ το σε center */
+            text-align: left;
         }
 
         /* Δομή Ορόφων με έντονα μαύρα κουτιά */
@@ -490,17 +490,36 @@
             const element = document.getElementById('document-page');
             
             const options = {
-                scale: 2, // Υψηλή ανάλυση για τη φωτογραφία
+                scale: 2, // Καθαρή εικόνα
                 useCORS: true,
                 backgroundColor: '#ffffff'
             };
 
-            html2canvas(element, options).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'katagrafi_ktiriou_new.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+            // Μικρή καθυστέρηση για να σιγουρέψουμε ότι έχουν αποτυπωθεί οι αλλαγές στα inputs
+            setTimeout(() => {
+                html2canvas(element, options).then(canvas => {
+                    try {
+                        const imgData = canvas.toDataURL('image/png');
+                        
+                        // Προσπάθεια για απευθείας download (δουλεύει σε PC & ορισμένους mobile browsers)
+                        const link = document.createElement('a');
+                        link.download = 'katagrafi_ktiriou.png';
+                        link.href = imgData;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        // Εναλλακτική για κινητά: Ανοίγει την εικόνα σε νέο tab για χειροκίνητη αποθήκευση
+                        const newWindow = window.open();
+                        if (newWindow) {
+                            newWindow.document.write('<img src="' + imgData + '" style="width:100%; max-width:790px;" /><p style="text-align:center; font-family:Arial; font-weight:bold; margin-top:20px;">Κρατήστε πατημένη την εικόνα για να την αποθηκεύσετε στις φωτογραφίες σας.</p>');
+                            newWindow.document.close();
+                        }
+                    } catch (e) {
+                        alert("Παρακαλώ τραβήξτε ένα screenshot της οθόνης, καθώς ο browser σας περιορίζει την εξαγωγή εικόνων.");
+                    }
+                });
+            }, 300);
         }
     </script>
 </body>
